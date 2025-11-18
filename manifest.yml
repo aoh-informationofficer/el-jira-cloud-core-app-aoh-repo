@@ -1,0 +1,64 @@
+modules:
+  jira:issueAction:
+    - key: issue-action-on-hold
+      resource: onHold
+      resolver:
+        function: resolver
+      viewportSize: medium
+      title: On Hold
+      displayConditions:
+        projectKey:
+          - IR
+          - AJE
+          - INIT
+          - ITSM
+          - JDE
+          - JDEPY
+          - EQMSCCR
+  jira:issuePanel:
+    - key: issue-panel-required-fields
+      resource: infoPanel
+      resolver:
+        function: resolver
+      title: Info Panel
+      description: Shows important messages for issue
+      icon: https://developer.atlassian.com/platform/forge/images/issue-panel-icon.svg
+      displayConditions:
+        projectKey: ICI
+  jira:dashboardGadget:
+    - key: dashboard-gadget-static-content
+      title: Static Content
+      description: Provide a static content to be shown within the dashbaord
+      thumbnail: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+      resource: staticContent
+      resolver:
+        function: resolver
+      edit:
+        resource: staticContent
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: staticContent
+    path: static/static-content/build
+  - key: onHold
+    path: static/on-hold/build
+  - key: infoPanel
+    path: static/info-panel/build
+permissions:
+  scopes:
+    - read:jira-work
+    - write:jira-work
+    - manage:jira-project
+    - manage:jira-configuration
+    - read:jira-user
+    - manage:jira-webhook
+  content:
+    styles:
+      - unsafe-inline
+app:
+  runtime:
+    name: nodejs22.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/f2f89b4a-3486-4533-8b83-e3328fb9d6b8
