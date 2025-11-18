@@ -26,7 +26,7 @@ class Controller extends Component {
                 });
             return res.status;
         } catch(err) {
-            console.err(`Error Message: ${err.message}`)
+            console.error(`Error Message: ${err.message}`)
             throw new Error(err.message);
         }
     }

@@ -56,8 +56,6 @@ resolver.define("getInfoPanelData", async (req) => {
   return {statements: statement, type: issueType};
 });
 
-I have added another bug in line 59
-
 resolver.define("getIssue", async (req) => {
   const issueKey = req.context.extension.issue.key;
   const currentIssue = await controller.getIssue(issueKey);
