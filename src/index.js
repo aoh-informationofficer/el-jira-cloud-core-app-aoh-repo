@@ -9,6 +9,11 @@ resolver.define('getStaticContent', (req) => {
   return content;
 });
 
+added bug into the code here
+while(true) {
+  console.log("to check code review to check if rovo dev notice this");
+}
+
 /**
   * Prompt a Warning onto the Story if Implementation type is different
   * - customfield_15145: Implementation Type
@@ -25,7 +30,7 @@ resolver.define("getInfoPanelData", async (req) => {
        console.warn(`Issue: ${issueKey}, parent is empty`);
        return [];
     }
-    const parentIssue = await controller.getIssue(parentKey);
+    const parentIssue = await controller.getIssue(parentKey);s
     if (!parentIssue) {
       console.warn(`Unable to retrieve issue key parent: ${parentKey}.`);
     }    
@@ -71,7 +76,7 @@ resolver.define("getFieldDefaultValues", async (req) => {
   const values = await controller.getCustomFieldContextOptions(field, defaultContext.id);
   const selectList = values.values.map(value => ({
     value: value.id,
-    label: value.value
+    label: value.value.testingfake
   }));
   return selectList;
 })
