@@ -9,11 +9,6 @@ resolver.define('getStaticContent', (req) => {
   return content;
 });
 
-added bug into the code here
-while(true) {
-  console.log("to check code review to check if rovo dev notice this");
-}
-
 /**
   * Prompt a Warning onto the Story if Implementation type is different
   * - customfield_15145: Implementation Type
@@ -30,7 +25,7 @@ resolver.define("getInfoPanelData", async (req) => {
        console.warn(`Issue: ${issueKey}, parent is empty`);
        return [];
     }
-    const parentIssue = await controller.getIssue(parentKey);s
+    const parentIssue = await controller.getIssue(parentKey);
     if (!parentIssue) {
       console.warn(`Unable to retrieve issue key parent: ${parentKey}.`);
     }    
@@ -76,7 +71,7 @@ resolver.define("getFieldDefaultValues", async (req) => {
   const values = await controller.getCustomFieldContextOptions(field, defaultContext.id);
   const selectList = values.values.map(value => ({
     value: value.id,
-    label: value.value.testingfake
+    label: value.value
   }));
   return selectList;
 })
@@ -97,7 +92,7 @@ resolver.define("postIssueOnHoldUpdate", async (req) => {
   const {reasonCode, onHold, onHoldReason} = formData;
   let comment = onHoldReason.trim();
 
-  if (comment != "" && onHold) {
+  if (comment == "" && onHold) {
     comment += `\n\nReason Code: ${reasonCode.label}\n\n`;
     if (project.key.substring(0, 3) == "JDE" || project.key === "EQMSCCR") {
       const roleList = ["10400","11364"]; // BSA and Architect
