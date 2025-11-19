@@ -80,8 +80,6 @@ function App() {
     setReasonCode(selectedCfValue);
   };
 
-  Here should throw me a bug over here.
-
   return (
     <div style={{"margin": "15px", "overflow": "visible", "minWidth": "600px"}}>
       <h1><strong>On Hold</strong></h1>

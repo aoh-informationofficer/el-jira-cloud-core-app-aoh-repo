@@ -18,7 +18,7 @@ resolver.define("getInfoPanelData", async (req) => {
   const issueKey = req.context.extension.issue.key;
   // Get issue details:
   const currentIssue = await controller.getIssue(issueKey);
-  const issueType = currentIssue.fields.issuetype.name
+  const issueType = currentIssue.fields.issuetype.name;
   if (issueType === "Story") {
     const parentKey = currentIssue.fields.parent.key || "";
     if (!parentKey) {
@@ -28,10 +28,11 @@ resolver.define("getInfoPanelData", async (req) => {
     const parentIssue = await controller.getIssue(parentKey);
     if (!parentIssue) {
       console.warn(`Unable to retrieve issue key parent: ${parentKey}.`);
+      return
     }    
     const parentImpVal = parentIssue.fields.customfield_15145 ? parentIssue.fields.customfield_15145.value : "";
     const currentIssueImpVal = currentIssue.fields?.customfield_15145 ? currentIssue.fields.customfield_15145.value : "";
-    if (currentIssueImpVal != parentImpVal) {
+    if (currentIssueImpVal !== parentImpVal) {
       statement.push(parentKey);
     }
   } else if (issueType === "Epic") {
@@ -55,8 +56,6 @@ resolver.define("getInfoPanelData", async (req) => {
 
   return {statements: statement, type: issueType};
 });
-
-I have added another bug in line 59
 
 resolver.define("getIssue", async (req) => {
   const issueKey = req.context.extension.issue.key;
@@ -89,12 +88,12 @@ resolver.define("getCurrentUserWithRole", async (req) => {
 
 resolver.define("postIssueOnHoldUpdate", async (req) => {
   const {formData, bsa} = req.payload;
-  const {accountId} = req.context;
+  const {accountId} = req.context.value;
   const {issue, project} = req.context.extension;
   const {reasonCode, onHold, onHoldReason} = formData;
   let comment = onHoldReason.trim();
 
-  if (comment != "" && onHold) {
+  if (comment == "" && onHold) {
     comment += `\n\nReason Code: ${reasonCode.label}\n\n`;
     if (project.key.substring(0, 3) == "JDE" || project.key === "EQMSCCR") {
       const roleList = ["10400","11364"]; // BSA and Architect
